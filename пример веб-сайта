@@ -10,7 +10,6 @@ $pdo = new PDO($dsn, $user, $pass, [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ]);
 
-// Получаем все книги
 $stmt = $pdo->query("SELECT b.title, a.first_name, a.last_name, b.available_copies 
                      FROM books b 
                      LEFT JOIN authors a ON b.author_id = a.author_id");
