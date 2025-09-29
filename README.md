@@ -1,15 +1,15 @@
--- Создание базы данных
+
 CREATE DATABASE library;
 USE library;
 
--- Таблица авторов
+
 CREATE TABLE authors (
     author_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL
 );
 
--- Таблица книг
+
 CREATE TABLE books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE books (
     FOREIGN KEY (author_id) REFERENCES authors(author_id) ON DELETE SET NULL
 );
 
--- Таблица читателей
+
 CREATE TABLE members (
     member_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE members (
     phone VARCHAR(20)
 );
 
--- Таблица выдач книг
+
 CREATE TABLE loans (
     loan_id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT NOT NULL,
