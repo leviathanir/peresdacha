@@ -1,1 +1,52 @@
-gg wp
+<?php
+$host = 'localhost';
+$db   = 'library';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$pdo = new PDO($dsn, $user, $pass, [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+]);
+
+$stmt = $pdo->query("SELECT b.title, a.first_name, a.last_name, b.available_copies 
+                     FROM books b 
+                     LEFT JOIN authors a ON b.author_id = a.author_id");
+$books = $stmt->fetchAll();
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>📚 Библиотека — Каталог книг</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Доступно экземпляров</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($books as $book): ?>
+            <tr>
+                <td><?= htmlspecialchars($book['title']) ?></td>
+                <td><?= htmlspecialchars($book['first_name'] . ' ' . $book['last_name']) ?></td>
+                <td><?= $book['available_copies'] ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html>
